@@ -1,0 +1,26 @@
+﻿Build started 8/10/2025 03:31:39.
+Logging verbosity is set to: Normal.     1>Project "K:\VSProjects\GraphicsEngine_Attempt3\GraphicsEngine_Attempt3.vcxproj" on node 2 (Build target(s)).
+     1>PrepareForBuild:
+         Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+       InitializeBuildStatus:
+         Touching "Graphics.d6eb919b\x64\Debug\Graphics.d6eb919b.tlog\unsuccessfulbuild".
+       ClCompile:
+         All outputs are up-to-date.
+       Link:
+         J:\Visual Studio\2022\VC\Tools\MSVC\14.43.34808\bin\HostX64\x64\link.exe /ERRORREPORT:PROMPT /OUT:"K:\VSProjects\GraphicsEngine_Attempt3\x64\Debug\GraphicsEngine_Attempt3.exe" /INCREMENTAL /ILK:"Graphics.d6eb919b\x64\Debug\GraphicsEngine_Attempt3.ilk" /NOLOGO K:\VSProjects\GraphicsEngine_Attempt3\packages\nupengl.core.0.1.0.1\build\native\../..//build/native/lib/x64\glew32.lib K:\VSProjects\GraphicsEngine_Attempt3\packages\nupengl.core.0.1.0.1\build\native\../..//build/native/lib/x64\glfw3dll.lib K:\VSProjects\GraphicsEngine_Attempt3\packages\nupengl.core.0.1.0.1\build\native\../..//build/native/lib/x64\freeglut.lib K:\VSProjects\GraphicsEngine_Attempt3\packages\glfw.3.4.0\build\native\lib\dynamic\v143\x64\glfw3dll.lib opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:glfw3dll.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"K:\VSProjects\GraphicsEngine_Attempt3\x64\Debug\GraphicsEngine_Attempt3.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"K:\VSProjects\GraphicsEngine_Attempt3\x64\Debug\GraphicsEngine_Attempt3.lib" /MACHINE:X64 Graphics.d6eb919b\x64\Debug\GraphicsEngine_Attempt3.obj
+         Graphics.d6eb919b\x64\Debug\Window.obj
+         GraphicsEngine_Attempt3.vcxproj -> K:\VSProjects\GraphicsEngine_Attempt3\x64\Debug\GraphicsEngine_Attempt3.exe
+       GlfwCopyDllRedist:
+         Copying file from "K:\VSProjects\GraphicsEngine_Attempt3\packages\glfw.3.4.0\build\native\bin\dynamic\v143\x64\glfw3.dll" to "K:\VSProjects\GraphicsEngine_Attempt3\x64\Debug\glfw3.dll".
+       nupengl_core_redist_AfterBuild_x64:
+         Copying file from "K:\VSProjects\GraphicsEngine_Attempt3\packages\nupengl.core.redist.0.1.0.1\build\native\bin\x64\glfw3.dll" to "K:\VSProjects\GraphicsEngine_Attempt3\x64\Debug\glfw3.dll".
+       FinalizeBuildStatus:
+         Deleting file "Graphics.d6eb919b\x64\Debug\Graphics.d6eb919b.tlog\unsuccessfulbuild".
+         Touching "Graphics.d6eb919b\x64\Debug\Graphics.d6eb919b.tlog\GraphicsEngine_Attempt3.lastbuildstate".
+     1>Done Building Project "K:\VSProjects\GraphicsEngine_Attempt3\GraphicsEngine_Attempt3.vcxproj" (Build target(s)).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.52

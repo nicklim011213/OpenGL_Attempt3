@@ -1,38 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "K:\\VSProjects\\GraphicsEngine_Attempt3\\",
+  "WorkspaceRootPath": "K:\\VSProjects\\OpenGL_Attempt3\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\GraphicsEngine_Attempt3\\GraphicsEngine_Attempt3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:GraphicsEngine_Attempt3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\GraphicsEngine_Attempt3\\EngineContext.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:EngineContext.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\GraphicsEngine_Attempt3\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\GraphicsEngine_Attempt3\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\GraphicsEngine_Attempt3\\Renderable.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:Renderable.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\GraphicsEngine_Attempt3\\Renderable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\OpenGL_Attempt3\\Renderable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:Renderable.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\GraphicsEngine_Attempt3\\Window.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:Window.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\OpenGL_Attempt3\\Shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:Shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\GraphicsEngine_Attempt3\\Window.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:Window.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|K:\\VSProjects\\OpenGL_Attempt3\\GraphicsEngine_Attempt3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D6EB919B-B9BF-4F45-9919-DC24C99201C9}|GraphicsEngine_Attempt3.vcxproj|solutionrelative:GraphicsEngine_Attempt3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,104 +30,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
+              "Title": "Shader.h",
+              "DocumentMoniker": "K:\\VSProjects\\OpenGL_Attempt3\\Shader.h",
+              "RelativeDocumentMoniker": "Shader.h",
+              "ToolTip": "K:\\VSProjects\\OpenGL_Attempt3\\Shader.h",
+              "RelativeToolTip": "Shader.h",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAHkAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-08-16T17:55:27.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Renderable.h",
-              "DocumentMoniker": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Renderable.h",
+              "DocumentMoniker": "K:\\VSProjects\\OpenGL_Attempt3\\Renderable.h",
               "RelativeDocumentMoniker": "Renderable.h",
-              "ToolTip": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Renderable.h",
+              "ToolTip": "K:\\VSProjects\\OpenGL_Attempt3\\Renderable.h",
               "RelativeToolTip": "Renderable.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAAADMAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-08-10T11:26:06.984Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Renderable.cpp",
-              "DocumentMoniker": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Renderable.cpp",
-              "RelativeDocumentMoniker": "Renderable.cpp",
-              "ToolTip": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Renderable.cpp",
-              "RelativeToolTip": "Renderable.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-08-10T11:25:54.631Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Scene.cpp",
-              "DocumentMoniker": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Scene.cpp",
-              "RelativeDocumentMoniker": "Scene.cpp",
-              "ToolTip": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Scene.cpp",
-              "RelativeToolTip": "Scene.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-08-10T11:23:28.929Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Scene.h",
-              "DocumentMoniker": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Scene.h",
-              "RelativeDocumentMoniker": "Scene.h",
-              "ToolTip": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Scene.h",
-              "RelativeToolTip": "Scene.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-08-10T11:23:17.256Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EngineContext.h",
-              "DocumentMoniker": "K:\\VSProjects\\GraphicsEngine_Attempt3\\EngineContext.h",
-              "RelativeDocumentMoniker": "EngineContext.h",
-              "ToolTip": "K:\\VSProjects\\GraphicsEngine_Attempt3\\EngineContext.h",
-              "RelativeToolTip": "EngineContext.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-08-10T06:50:33.269Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Window.h",
-              "DocumentMoniker": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Window.h",
-              "RelativeDocumentMoniker": "Window.h",
-              "ToolTip": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Window.h",
-              "RelativeToolTip": "Window.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-08-10T06:46:22.592Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Window.cpp",
-              "DocumentMoniker": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Window.cpp",
-              "RelativeDocumentMoniker": "Window.cpp",
-              "ToolTip": "K:\\VSProjects\\GraphicsEngine_Attempt3\\Window.cpp",
-              "RelativeToolTip": "Window.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-08-10T06:46:02.144Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "GraphicsEngine_Attempt3.cpp",
-              "DocumentMoniker": "K:\\VSProjects\\GraphicsEngine_Attempt3\\GraphicsEngine_Attempt3.cpp",
+              "DocumentMoniker": "K:\\VSProjects\\OpenGL_Attempt3\\GraphicsEngine_Attempt3.cpp",
               "RelativeDocumentMoniker": "GraphicsEngine_Attempt3.cpp",
-              "ToolTip": "K:\\VSProjects\\GraphicsEngine_Attempt3\\GraphicsEngine_Attempt3.cpp",
+              "ToolTip": "K:\\VSProjects\\OpenGL_Attempt3\\GraphicsEngine_Attempt3.cpp",
               "RelativeToolTip": "GraphicsEngine_Attempt3.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-08-10T06:43:05.428Z",
               "EditorCaption": ""

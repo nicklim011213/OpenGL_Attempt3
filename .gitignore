@@ -1,0 +1,14 @@
+packages/
+
+*.obj
+*.log
+*.tlog
+*.pdb
+*.db
+*.vsidx
+
+.vs/
+bin/
+obj/
+x64/
+Graphics.d6eb919b/

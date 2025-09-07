@@ -17,6 +17,7 @@ public:
 	}
 
 	void Initlize() {
+		glewExperimental = GL_TRUE;
 		glewInit();
 	}
 

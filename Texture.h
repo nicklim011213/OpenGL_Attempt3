@@ -3,42 +3,37 @@
 #include <unordered_map>
 #include <string>
 #include <iostream>
-#define STB_IMAGE_IMPLEMENTATION
+
 #include <stb_image.h>
 
 #include "FileUtils.h"
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
+class TexturePool;
 
 class Texture
 {
 	int Width = 0, Height = 0, Channels = 0;
 	unsigned int TextureID = 0;
+	std::string Type;
+	std::string Name;
 
 public:
-
-	Texture(std::string FileName, std::string TextureName)
+	Texture(std::string FileName, std::string TextureName, std::string Type)
 	{
+		this->Type = Type;
+		this->Name = TextureName;
 		std::string Path = FileUtils::GetInstance().GetTexturePath();
 		std::string FullPath = Path + "/" + FileName; //TODO: Replace Windows specfic path handling
 		unsigned char* data = stbi_load(FullPath.c_str(), &Width, &Height, &Channels, 0);
-		
+
 		glGenTextures(1, &TextureID);
 		glBindTexture(GL_TEXTURE_2D, TextureID);
-		int ChannelEnum = 0;
-		if (Channels == 1)
-		{
-			ChannelEnum = GL_RED;
-		}
-		else if (Channels == 3)
-		{
-			ChannelEnum = GL_RGB;
-		}
-		else if (Channels == 4)
-		{
-			ChannelEnum = GL_RGBA;
-		}
+
+		int ChannelEnum = (Channels == 1) ? GL_RED :
+			(Channels == 3) ? GL_RGB :
+			(Channels == 4) ? GL_RGBA : 0;
 
 		if (data)
 		{
@@ -51,12 +46,21 @@ public:
 		}
 
 		stbi_image_free(data);
-
-		TexturePool::GetInstance().AddTextureToPool(TextureName, *this);
 	}
 
-	int GetID() const {
-		return TextureID;
+public:
+
+	unsigned int GetID() const { return TextureID; }
+	const std::string& GetType() const { return Type; }
+	const std::string& GetName() const { return Name; }
+
+	void Bind(unsigned int slot = 0) const {
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D, TextureID);
+	}
+
+	void Unbind() const {
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 };
 
@@ -67,9 +71,9 @@ class TexturePool
 	TexturePool(const TexturePool&) = delete;
 	TexturePool& operator=(const TexturePool&) = delete;
 
-	std::unordered_map<std::string, Texture> texturePool;
+	std::unordered_map<std::string, std::shared_ptr<Texture>> texturePool;
 
-	void AddTextureToPool(const std::string& name, Texture texture) {
+	void AddTextureToPool(const std::string& name, std::shared_ptr<Texture> texture) {
 		texturePool[name] = texture;
 	}
 
@@ -80,13 +84,19 @@ public:
 		return instance;
 	}
 
-	int GetTextureID(const std::string& name) {
+	std::shared_ptr<Texture> CreateTexture(const std::string& name, const std::string& fileName, const std::string& type) {
 		if (texturePool.find(name) != texturePool.end()) {
-			return texturePool[name].GetID();
+			return texturePool[name];
 		}
-		else {
-			std::cerr << "Texture not found: " << name << std::endl;
-			return 0; // Return 0 if texture not found
+		auto texture = std::make_shared<Texture>(fileName, name, type);
+		texturePool[name] = texture;
+		return texture;
+	}
+
+	std::shared_ptr<Texture> GetTexture(const std::string& name) {
+		if (texturePool.find(name) != texturePool.end()) {
+			return texturePool[name];
 		}
+		return nullptr;
 	}
 };

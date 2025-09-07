@@ -7,8 +7,6 @@
 
 class Scene {
 
-	std::vector<Renderable> SceneObjects;
-
 public:
 
 	Scene()

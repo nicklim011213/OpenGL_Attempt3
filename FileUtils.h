@@ -42,4 +42,11 @@ public:
 		p /= "Textures";
 		return p.string();
 	}
+
+	std::string GetModelPath()
+	{
+		boost::filesystem::path p = boost::filesystem::current_path();
+		p /= "Models";
+		return p.string();
+	}
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "glm/vec3.hpp"
+#include <iostream>
 
 class EngineContext {
 	EngineContext() {};
@@ -17,6 +18,7 @@ public:
 	}
 
 	void Initlize() {
+
 		glewExperimental = GL_TRUE;
 		glewInit();
 	}

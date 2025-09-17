@@ -16,8 +16,6 @@
 #include "Texture.h"
 #include "FileUtils.h"
 
-//TODO Add Shaders for model rendering
-
 struct Vertex {
 	glm::vec3 Position;
 	glm::vec3 Normal;
@@ -51,13 +49,25 @@ public:
 			glActiveTexture(GL_TEXTURE0 + i);
 			std::string number;
 			std::string name = textures[i]->GetType();
+			std::string ShaderName = "";
 			if (name == "texture_diffuse")
+			{
 				number = std::to_string(diffuseNr++);
+				ShaderName = "material.diffuse";
+			}
 			else if (name == "texture_specular")
+			{
 				number = std::to_string(SpecularNr++);
-			Shader->SetInt((name + number).c_str(), i);
+				ShaderName = "material.specular";
+			}
+			Shader->SetInt((ShaderName + number).c_str(), i);
 			glBindTexture(GL_TEXTURE_2D, textures[i]->GetID());
 		}
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindVertexArray(VAO);
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
 	}
 
 	void Init()
@@ -82,40 +92,49 @@ public:
 
 class Model
 {
-	std::vector<Mesh> meshes;
-	std::string directory;
+public:
 
-	void LoadModel(const std::string& path)
+	std::string Dir;
+	std::vector<Mesh> meshes;
+
+	Model(std::string ModelObjectPath)
+	{
+		Load(ModelObjectPath);
+	}
+
+	void Draw(std::shared_ptr<ShaderProgram> shader)
+	{
+		for (unsigned int i = 0; i < meshes.size(); i++)
+			meshes[i].Draw(shader);
+	}	
+
+	void Load(std::string ModelObjectPath)
 	{
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
-
+		const aiScene* scene = importer.ReadFile(ModelObjectPath, aiProcess_Triangulate | aiProcess_FlipUVs);
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			std::cerr << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
 			return;
 		}
-		directory = path.substr(0, path.find_last_of('/'));
-
-		processNode(scene->mRootNode, scene);
+		Dir = ModelObjectPath.substr(0, ModelObjectPath.find_last_of('/'));
+		ProcessNode(scene->mRootNode, scene);
 	}
 
-	void processNode(aiNode* node, const aiScene* scene)
+	void ProcessNode(aiNode* node, const aiScene* scene)
 	{
-		// process all the node's meshes (if any)
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			meshes.push_back(processMesh(mesh, scene));
+			meshes.push_back(BuildMesh(mesh, scene));
 		}
-		// then do the same for each of its children
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
-			processNode(node->mChildren[i], scene);
+			ProcessNode(node->mChildren[i], scene);
 		}
 	}
 
-	Mesh processMesh(aiMesh* mesh, const aiScene* scene)
+	Mesh BuildMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
@@ -124,60 +143,70 @@ class Model
 		for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 		{
 			Vertex vertex;
-			vertex.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-			vertex.Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+			glm::vec3 vector;
+			vector.x = mesh->mVertices[i].x;
+			vector.y = mesh->mVertices[i].y;
+			vector.z = mesh->mVertices[i].z;
+			vertex.Position = vector;
+			if (mesh->HasNormals())
+			{
+				vector.x = mesh->mNormals[i].x;
+				vector.y = mesh->mNormals[i].y;
+				vector.z = mesh->mNormals[i].z;
+				vertex.Normal = vector;
+			}
 			if (mesh->mTextureCoords[0])
-				vertex.TexCoords = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+			{
+				glm::vec2 vec;
+				vec.x = mesh->mTextureCoords[0][i].x;
+				vec.y = mesh->mTextureCoords[0][i].y;
+				vertex.TexCoords = vec;
+			}
 			else
-				vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+			vertex.TexCoords = glm::vec2(0.0f, 0.0f);
 			vertices.push_back(vertex);
 		}
+
 		for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 		{
 			aiFace face = mesh->mFaces[i];
 			for (unsigned int j = 0; j < face.mNumIndices; j++)
 				indices.push_back(face.mIndices[j]);
 		}
+
 		if (mesh->mMaterialIndex >= 0)
 		{
 			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-
-			std::vector<std::shared_ptr<Texture>> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-
+			std::vector<std::shared_ptr<Texture>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
 			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-
-			std::vector<std::shared_ptr<Texture>> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-
+			std::vector<std::shared_ptr<Texture>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
 			textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 		}
 
 		return Mesh(vertices, indices, textures);
 	}
 
-	std::vector<std::shared_ptr<Texture>> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+	std::vector<std::shared_ptr<Texture>> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 	{
-		std::vector<std::shared_ptr<Texture>>  textures;
-		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+		std::vector<std::shared_ptr<Texture>> textures;
+		/*/for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 		{
 			aiString str;
 			mat->GetTexture(type, i, &str);
-			TexturePool::GetInstance().CreateTexture(str.C_Str(), directory + '/' + str.C_Str(), typeName);
-			textures.push_back(TexturePool::GetInstance().GetTexture(str.C_Str()));
-		}
+			std::shared_ptr<Texture> Texture = TexturePool::GetInstance().CreateTexture(str.C_Str(), Dir + '/' + str.C_Str(), typeName);			
+		}*/
+
+		std::shared_ptr<Texture> diffuseTex = TexturePool::GetInstance().CreateTexture(
+			"diffuse", "backpack_diffuse.jpg", "texture_diffuse"
+		);
+		textures.push_back(diffuseTex);
+
+		// specular map
+		std::shared_ptr<Texture> specularTex = TexturePool::GetInstance().CreateTexture(
+			"specular", "backpack_specular.jpg", "texture_specular"
+		);
+		textures.push_back(specularTex);
 		return textures;
-	}
-
-public: 
-
-	Model(const std::string& path)
-	{
-		LoadModel(path);
-	}
-
-	void Draw(std::shared_ptr<ShaderProgram> Shader)
-	{
-		for (unsigned int i = 0; i < meshes.size(); i++)
-			meshes[i].Draw(Shader);
 	}
 };
 

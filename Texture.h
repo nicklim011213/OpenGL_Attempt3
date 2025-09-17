@@ -25,7 +25,7 @@ public:
 		this->Type = Type;
 		this->Name = TextureName;
 		std::string Path = FileUtils::GetInstance().GetTexturePath();
-		std::string FullPath = Path + "/" + FileName; //TODO: Replace Windows specfic path handling
+		std::string FullPath = Path + "\\" + FileName; //TODO: Replace Windows specfic path handling
 		unsigned char* data = stbi_load(FullPath.c_str(), &Width, &Height, &Channels, 0);
 
 		glGenTextures(1, &TextureID);

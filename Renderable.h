@@ -41,6 +41,7 @@ public:
 
 	void Draw(std::shared_ptr<ShaderProgram> Shader)
 	{
+		glGetError(); // Clear error flag
 		int diffuseNr = 1;
 		int SpecularNr = 1;
 

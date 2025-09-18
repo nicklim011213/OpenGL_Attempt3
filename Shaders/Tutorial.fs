@@ -8,6 +8,8 @@ in vec2 TexCoords;
 struct Material {
     sampler2D diffuse1;
     sampler2D specular1;
+	sampler2D diffuse2;
+    sampler2D specular2;
     float shininess;
 };
 

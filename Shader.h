@@ -71,7 +71,7 @@ class FragmentShader : public Shader
 
 	FragmentShader(const std::string& name, const std::string& ShaderFileName) : Shader(name, ShaderFileName)
 	{
-		
+		Compile();
 	}
 
 	void Compile() override {

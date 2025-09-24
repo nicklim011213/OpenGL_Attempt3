@@ -34,8 +34,11 @@ int main()
 
 	Camera& camera = Camera::GetInstance();
 
-	Model model(FileUtils::GetInstance().GetModelPath() + "\\backpack.obj");
+	std::vector<std::string> TextureFileNames = { "backpack_diffuse.jpg", "backpack_specular.jpg"};
+	//Model model(FileUtils::GetInstance().GetModelPath() + "\\backpack.obj", true, TextureFileNames);
+	Model model(FileUtils::GetInstance().GetModelPath() + "\\Tree1.obj");
 	model.Move(glm::vec3(0.0f, 0.0f, 8.0f));
+	model.Scale(glm::vec3(0.2f, 0.2f, 0.2f));
 
 	while (!glfwWindowShouldClose(window.GetWindow()))
 	{

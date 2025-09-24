@@ -83,11 +83,20 @@ public:
 
 	std::string Dir;
 	std::vector<Mesh> meshes;
+	bool ExternalTexture = false;
+	std::vector<std::string> ExtTextures;
 
 	glm::mat4 ModelProperties = glm::mat4(1.0f);
 
 	Model(std::string ModelObjectPath)
 	{
+		Load(ModelObjectPath);
+	}
+
+	Model(std::string ModelObjectPath, bool TextureSeperate, std::vector<std::string> TextureFiles)
+	{
+		ExternalTexture = true;
+		ExtTextures = TextureFiles;
 		Load(ModelObjectPath);
 	}
 

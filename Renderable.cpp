@@ -1,4 +1,5 @@
 #include "Renderable.h"
+#include <algorithm>
 
 Mesh Model::BuildMesh(aiMesh* mesh, const aiScene* scene)
 {
@@ -55,23 +56,36 @@ Mesh Model::BuildMesh(aiMesh* mesh, const aiScene* scene)
 std::vector<std::shared_ptr<Texture>> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
 	std::vector<std::shared_ptr<Texture>> textures;
-	/*/for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+	if (ExternalTexture == false)
 	{
-		aiString str;
-		mat->GetTexture(type, i, &str);
-		std::shared_ptr<Texture> Texture = TexturePool::GetInstance().CreateTexture(str.C_Str(), Dir + '/' + str.C_Str(), typeName);
-	}*/
-
-	std::shared_ptr<Texture> diffuseTex = TexturePool::GetInstance().CreateTexture(
-		"diffuse", "backpack_diffuse.jpg", "texture_diffuse"
-	);
-	textures.push_back(diffuseTex);
-
-	// specular map
-	std::shared_ptr<Texture> specularTex = TexturePool::GetInstance().CreateTexture(
-		"specular", "backpack_specular.jpg", "texture_specular"
-	);
-	textures.push_back(specularTex);
+		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+		{
+			aiString str;
+			mat->GetTexture(type, i, &str);
+			std::shared_ptr<Texture> Texture = TexturePool::GetInstance().CreateTexture(str.C_Str(), Dir + '/' + str.C_Str(), typeName);
+			textures.push_back(Texture);
+		}
+	}
+	else
+	{
+		for (std::string Texturename : ExtTextures)
+		{
+			if (Texturename.find("_diffuse") != std::string::npos)
+			{
+				std::shared_ptr<Texture> diffuseTex = TexturePool::GetInstance().CreateTexture(
+					Texturename, Texturename, "texture_diffuse"
+				);
+				textures.push_back(diffuseTex);
+			}
+			if (Texturename.find("_specular") != std::string::npos)
+			{
+				std::shared_ptr<Texture> specularTex = TexturePool::GetInstance().CreateTexture(
+					Texturename,  Texturename, "texture_specular"
+				);
+				textures.push_back(specularTex);
+			}
+		}
+	}
 	return textures;
 }
 

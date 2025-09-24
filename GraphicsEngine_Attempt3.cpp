@@ -4,23 +4,27 @@
 #include "EngineContext.h"
 #include "Shader.h"
 #include "Renderable.h"
+#include "Camera.h"
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void mousemovement(GLFWwindow* window, double xpos, double ypos);
+void processInput(GLFWwindow* window);
 
 int main()
 {
 	Window& window = Window::GetInstance();
 	window.Init();
-	window.GenerateWindow(800, 600, "Graphics Engine Attempt 3");
+	window.GenerateWindow(1920, 1080, "Graphics Engine Attempt 3");
+	glfwSetFramebufferSizeCallback(window.GetWindow(), framebuffer_size_callback);
+	glfwSetInputMode(window.GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window.GetWindow(), mousemovement);
 
 	EngineContext& context = EngineContext::GetInstance();
 	context.Initlize();
-	context.SetBackgroundColor(1.0f, 1.0f, 1.0f);
 
-	glEnable(GL_DEPTH_TEST);
 	stbi_set_flip_vertically_on_load(true);
 
 	ShaderFactory& Factory = ShaderFactory::GetInstance();
@@ -28,15 +32,10 @@ int main()
 	std::shared_ptr<VertexShader> VS = Factory.CreateVertexShader("Tutvs", "ModelLoading.vs");
 	std::shared_ptr<ShaderProgram> TutShader = Factory.CreateShaderProgram("TutPrg", VS, FS);
 
-	Model model(FileUtils::GetInstance().GetModelPath() + "/backpack.obj");
+	Camera& camera = Camera::GetInstance();
 
-	glm::vec3 viewpos = glm::vec3(0.0f, 0.0f, 20.0f);
-	glm::vec3 viewat = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::vec3 viewup = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 projection = glm::perspective(glm::radians(1.0f), (float)800 / (float)600, 0.1f, 100.0f);
-	glm::mat4 view = glm::lookAt(viewpos, viewat, viewup);
-	glm::mat4 modelview = glm::mat4(1.0f);;
-	modelview = glm::scale(modelview, glm::vec3(0.05f));
+	Model model(FileUtils::GetInstance().GetModelPath() + "\\backpack.obj");
+	model.Move(glm::vec3(0.0f, 0.0f, 8.0f));
 
 	while (!glfwWindowShouldClose(window.GetWindow()))
 	{
@@ -44,16 +43,35 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		TutShader->Use();
-
-		TutShader->SetMat4("projection", projection);
-		TutShader->SetMat4("view", view);
-		TutShader->SetMat4("model", modelview);
-		TutShader->SetVec3("viewpos", glm::vec3(0.5f, 0.5f, 0.5f));
+		TutShader->SetMat4("projection", camera.GetProjectionView());
+		TutShader->SetMat4("view", camera.GetView());
+		TutShader->SetMat4("model", model.GetModelView());
+		TutShader->SetVec3("viewpos", camera.GetPosition());
 
 		model.Draw(TutShader);
 
+		processInput(window.GetWindow());
 		glfwSwapBuffers(window.GetWindow());
 		glfwPollEvents();
+		camera.FrameTimerUpdate();
 	}
 }
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+	Camera& camera = Camera::GetInstance();
+	camera.SetViewport(width, height);
+}
+
+void mousemovement(GLFWwindow* window, double xpos, double ypos)
+{
+	Camera& camera = Camera::GetInstance();
+	camera.mousemovement(window, xpos, ypos);
+}
+
+void processInput(GLFWwindow* window)
+{
+	Camera& camera = Camera::GetInstance();
+	camera.Input(window);
+}

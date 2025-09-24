@@ -21,6 +21,7 @@ public:
 
 		glewExperimental = GL_TRUE;
 		glewInit();
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	void SetBackgroundColor(float R, float G, float B)

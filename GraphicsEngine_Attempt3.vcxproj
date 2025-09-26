@@ -132,6 +132,8 @@
   <ItemGroup>
     <ClCompile Include="GraphicsEngine_Attempt3.cpp" />
     <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

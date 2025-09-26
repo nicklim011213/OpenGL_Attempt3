@@ -62,7 +62,8 @@ std::vector<std::shared_ptr<Texture>> Model::LoadMaterialTextures(aiMaterial* ma
 		{
 			aiString str;
 			mat->GetTexture(type, i, &str);
-			std::shared_ptr<Texture> Texture = TexturePool::GetInstance().CreateTexture(str.C_Str(), Dir + '/' + str.C_Str(), typeName);
+			int index = Dir.find_last_of("\\");
+			std::shared_ptr<Texture> Texture = TexturePool::GetInstance().CreateTexture(str.C_Str(), Dir.substr(0,index) + '\\' + str.C_Str(), typeName);
 			textures.push_back(Texture);
 		}
 	}

@@ -20,33 +20,7 @@ class Texture
 	std::string Name;
 
 public:
-	Texture(std::string FileName, std::string TextureName, std::string Type)
-	{
-		this->Type = Type;
-		this->Name = TextureName;
-		std::string Path = FileUtils::GetInstance().GetTexturePath();
-		std::string FullPath = Path + "\\" + FileName; //TODO: Replace Windows specfic path handling
-		unsigned char* data = stbi_load(FullPath.c_str(), &Width, &Height, &Channels, 0);
-
-		glGenTextures(1, &TextureID);
-		glBindTexture(GL_TEXTURE_2D, TextureID);
-
-		int ChannelEnum = (Channels == 1) ? GL_RED :
-			(Channels == 3) ? GL_RGB :
-			(Channels == 4) ? GL_RGBA : 0;
-
-		if (data)
-		{
-			glTexImage2D(GL_TEXTURE_2D, 0, ChannelEnum, Width, Height, 0, ChannelEnum, GL_UNSIGNED_BYTE, data);
-			glGenerateMipmap(GL_TEXTURE_2D);
-		}
-		else
-		{
-			std::cerr << "Failed to load texture: " << FullPath << std::endl;
-		}
-
-		stbi_image_free(data);
-	}
+	Texture(std::string FilePath, std::string TextureName, std::string Type);
 
 public:
 
@@ -70,6 +44,7 @@ class TexturePool
 	TexturePool() {};
 	TexturePool(const TexturePool&) = delete;
 	TexturePool& operator=(const TexturePool&) = delete;
+	static bool flipped;
 
 	std::unordered_map<std::string, std::shared_ptr<Texture>> texturePool;
 
@@ -81,6 +56,11 @@ public:
 
 	static TexturePool& GetInstance() {
 		static TexturePool instance;
+		if (!flipped)
+		{
+			stbi_set_flip_vertically_on_load(true);
+			flipped = true;
+		}
 		return instance;
 	}
 

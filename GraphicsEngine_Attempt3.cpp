@@ -25,18 +25,13 @@ int main()
 	EngineContext& context = EngineContext::GetInstance();
 	context.Initlize();
 
-	stbi_set_flip_vertically_on_load(true);
-
 	ShaderFactory& Factory = ShaderFactory::GetInstance();
-	std::shared_ptr<FragmentShader> FS = Factory.CreateFragmentShader("Tutfs", "ModelLoading.fs");
-	std::shared_ptr<VertexShader> VS = Factory.CreateVertexShader("Tutvs", "ModelLoading.vs");
-	std::shared_ptr<ShaderProgram> TutShader = Factory.CreateShaderProgram("TutPrg", VS, FS);
+	std::shared_ptr<ShaderProgram> TutShader = Factory.CreateShaderProgram("ModelLoading.vs", "ModelLoading.fs");
 
 	Camera& camera = Camera::GetInstance();
 
-	std::vector<std::string> TextureFileNames = { "backpack_diffuse.jpg", "backpack_specular.jpg"};
-	//Model model(FileUtils::GetInstance().GetModelPath() + "\\backpack.obj", true, TextureFileNames);
-	Model model(FileUtils::GetInstance().GetModelPath() + "\\Tree1.obj");
+	std::vector<std::string> TextureFileNames = { FileUtils::GetInstance().GetTexturePath() + "\\backpack_diffuse.jpg" };
+	Model model(FileUtils::GetInstance().GetModelPath() + "\\backpack.obj", true, TextureFileNames);
 	model.Move(glm::vec3(0.0f, 0.0f, 8.0f));
 	model.Scale(glm::vec3(0.2f, 0.2f, 0.2f));
 

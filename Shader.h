@@ -13,9 +13,9 @@
 class Shader
 {
 protected:
-	Shader(std::string ShaderName, std::string ShaderFileName)
+	Shader(std::string ShaderFileName)
 	{
-		this->Name = ShaderName;
+		this->Name = ShaderFileName;
 		this->SourceCode = FileUtils::GetInstance().ReadShader(ShaderFileName);
 	}
 	bool Compiled = false;
@@ -38,56 +38,35 @@ public:
 	{
 		return ShaderID;
 	}
+
+	std::string GetName()
+	{
+		return Name;
+	}
 };
 
 class VertexShader : public Shader
 {
 	friend class ShaderFactory;
 
-	VertexShader(const std::string& name, const std::string& ShaderFileName) : Shader(name, ShaderFileName)
+	VertexShader(const std::string& ShaderFileName) : Shader(ShaderFileName)
 	{
 		Compile();
 	}
 
-	void Compile() override {
-		Compiled = true;
-		ShaderID = glCreateShader(GL_VERTEX_SHADER);
-		const char* SourceCode = this->SourceCode.c_str();
-		glShaderSource(ShaderID, 1, &SourceCode, NULL);
-		glCompileShader(ShaderID);
-		int success;
-		glGetShaderiv(ShaderID, GL_COMPILE_STATUS, &success);
-		if (!success) {
-			char infoLog[512];
-			glGetShaderInfoLog(ShaderID, 512, NULL, infoLog);
-			std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-		}
-	}
+	void Compile() override;
 };
 
 class FragmentShader : public Shader
 {
 	friend class ShaderFactory;
 
-	FragmentShader(const std::string& name, const std::string& ShaderFileName) : Shader(name, ShaderFileName)
+	FragmentShader(const std::string& ShaderFileName) : Shader(ShaderFileName)
 	{
 		Compile();
 	}
 
-	void Compile() override {
-		Compiled = true;
-		ShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-		const char* SourceCode = this->SourceCode.c_str();
-		glShaderSource(ShaderID, 1, &SourceCode, NULL);
-		glCompileShader(ShaderID);
-		int success;
-		glGetShaderiv(ShaderID, GL_COMPILE_STATUS, &success);
-		if (!success) {
-			char infoLog[512];
-			glGetShaderInfoLog(ShaderID, 512, NULL, infoLog);
-			std::cerr << "ERROR::SHADER::VFRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-		}
-	}
+	void Compile() override;
 };
 
 class ShaderProgram
@@ -96,22 +75,7 @@ class ShaderProgram
 
 	int ID = 0;
 
-	ShaderProgram(std::shared_ptr<VertexShader> VertexShader, std::shared_ptr<FragmentShader> FragmentShader)
-	{
-		ID = glCreateProgram();
-		glAttachShader(ID, VertexShader->GetShaderID());
-		glAttachShader(ID, FragmentShader->GetShaderID());
-		glLinkProgram(ID);
-
-		int success;
-		glGetProgramiv(ID, GL_LINK_STATUS, &success);
-		if (!success)
-		{
-			char infoLog[512];
-			glGetProgramInfoLog(ID, 512, NULL, infoLog);
-			std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-		}
-	}
+	ShaderProgram(std::shared_ptr<VertexShader> VertexShader, std::shared_ptr<FragmentShader> FragmentShader);
 
 public:
 
@@ -162,37 +126,38 @@ public:
 		return instance;
 	}
 
-	std::shared_ptr<VertexShader> CreateVertexShader(const std::string& name, const std::string& ShaderName) {
+	std::shared_ptr<VertexShader> CreateVertexShader(const std::string& ShaderFileName) {
 
-		if (ShaderStorage.find(name) != ShaderStorage.end()) {
-			return std::static_pointer_cast<VertexShader>(ShaderStorage[name]);
+		if (ShaderStorage.find(ShaderFileName) != ShaderStorage.end()) {
+			return std::static_pointer_cast<VertexShader>(ShaderStorage[ShaderFileName]);
 		}
 
-		auto shader = std::shared_ptr<VertexShader>(new VertexShader(name, ShaderName));
-		ShaderStorage[name] = shader;
+		auto shader = std::shared_ptr<VertexShader>(new VertexShader(ShaderFileName));
+		ShaderStorage[ShaderFileName] = shader;
 		return shader;
 	}
 
-	std::shared_ptr<FragmentShader> CreateFragmentShader(const std::string& name, const std::string& ShaderName) {
+	std::shared_ptr<FragmentShader> CreateFragmentShader(const std::string& ShaderFileName) {
 
-		if (ShaderStorage.find(name) != ShaderStorage.end()) {
-			return std::static_pointer_cast<FragmentShader>(ShaderStorage[name]);
+		if (ShaderStorage.find(ShaderFileName) != ShaderStorage.end()) {
+			return std::static_pointer_cast<FragmentShader>(ShaderStorage[ShaderFileName]);
 		}
 
-		auto shader = std::shared_ptr<FragmentShader>(new FragmentShader(name, ShaderName));
-		ShaderStorage[name] = shader;
+		auto shader = std::shared_ptr<FragmentShader>(new FragmentShader(ShaderFileName));
+		ShaderStorage[ShaderFileName] = shader;
 		return shader;
 	}
 
-	std::shared_ptr<ShaderProgram> CreateShaderProgram(const std::string& name, std::shared_ptr<VertexShader> VertexShader, std::shared_ptr<FragmentShader> FragmentShader)
+	std::shared_ptr<ShaderProgram> CreateShaderProgram(std::shared_ptr<VertexShader> VertexShader, std::shared_ptr<FragmentShader> FragmentShader)
 	{
-		if (ShaderProgramStorage.find(name) != ShaderProgramStorage.end())
+		std::string ProgramName = VertexShader->GetName() + FragmentShader->GetName();
+		if (ShaderProgramStorage.find(ProgramName) != ShaderProgramStorage.end())
 		{
-			return ShaderProgramStorage[name];
+			return ShaderProgramStorage[ProgramName];
 		}
 		
 		auto ShaderPrg = std::shared_ptr<ShaderProgram>(new ShaderProgram(VertexShader, FragmentShader));
-		ShaderProgramStorage[name] = ShaderPrg;
+		ShaderProgramStorage[ProgramName] = ShaderPrg;
 		return ShaderPrg;
 	}
 
@@ -210,5 +175,12 @@ public:
 			return ShaderProgramStorage[name];
 		}
 		return nullptr;
+	}
+
+	std::shared_ptr<ShaderProgram> CreateShaderProgram(const std::string& VertexShaderFile, const std::string& FragmentShaderFile)
+	{
+		auto VertPtr = CreateVertexShader(VertexShaderFile);
+		auto FragPtr = CreateFragmentShader(FragmentShaderFile);
+		return CreateShaderProgram(VertPtr, FragPtr);
 	}
 };

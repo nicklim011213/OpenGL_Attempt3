@@ -26,25 +26,31 @@ int main()
 	context.Initlize();
 
 	ShaderFactory& Factory = ShaderFactory::GetInstance();
-	std::shared_ptr<ShaderProgram> TutShader = Factory.CreateShaderProgram("ModelLoading.vs", "ModelLoading.fs");
+	std::shared_ptr<ShaderProgram> TutShader = Factory.CreateShaderProgram("ModelLoading.vs", "ModelLoading_Advanced.fs");
 
 	Camera& camera = Camera::GetInstance();
 
-	std::vector<std::string> TextureFileNames = { FileUtils::GetInstance().GetTexturePath() + "\\backpack_diffuse.jpg" };
+	FileUtils& FileSystem = FileUtils::GetInstance();
+	std::string ModelPath = FileSystem.GetModelPath();
+	std::string TexturePath = FileSystem.GetTexturePath();
+	std::vector<std::string> TextureFileNames = { TexturePath + "\\backpack_diffuse.jpg", TexturePath + "\\backpack_specular.jpg"};
+
 	Model model(FileUtils::GetInstance().GetModelPath() + "\\backpack.obj", true, TextureFileNames);
 	model.Move(glm::vec3(0.0f, 0.0f, 8.0f));
 	model.Scale(glm::vec3(0.2f, 0.2f, 0.2f));
+
+	TutShader->Use();
+	TutShader->SetVec3("lightPos", glm::vec3(0.0f, 0.0f, 9.0f));
+	TutShader->SetMat4("projection", camera.GetProjectionView());
+	TutShader->SetMat4("model", model.GetModelView());
 
 	while (!glfwWindowShouldClose(window.GetWindow()))
 	{
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		TutShader->Use();
-		TutShader->SetMat4("projection", camera.GetProjectionView());
 		TutShader->SetMat4("view", camera.GetView());
-		TutShader->SetMat4("model", model.GetModelView());
-		TutShader->SetVec3("viewpos", camera.GetPosition());
+		TutShader->SetVec3("viewPos", camera.GetPosition());
 
 		model.Draw(TutShader);
 

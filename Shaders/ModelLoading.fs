@@ -1,7 +1,7 @@
 #version 330 core
 out vec4 FragColor;
 
-in vec2 TexCoords;
+in vec2 TexturePosition;
 
 uniform sampler2D texture_diffuse1;
 

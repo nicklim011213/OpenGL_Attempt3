@@ -36,17 +36,17 @@ public:
 		return source;
 	}
 
-	std::string GetTexturePath()
+	boost::filesystem::path GetTexturePath()
 	{
 		boost::filesystem::path p = boost::filesystem::current_path();
 		p /= "Textures";
-		return p.string();
+		return p;
 	}
 
-	std::string GetModelPath()
+	boost::filesystem::path GetModelPath()
 	{
 		boost::filesystem::path p = boost::filesystem::current_path();
 		p /= "Models";
-		return p.string();
+		return p;
 	}
 };

@@ -7,16 +7,17 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <glm/glm.hpp>
+#include <boost/filesystem.hpp>
 
 #include "FileUtils.h"
 
 class Shader
 {
 protected:
-	Shader(std::string ShaderFileName)
+	Shader(boost::filesystem::path ShaderFileName)
 	{
-		this->Name = ShaderFileName;
-		this->SourceCode = FileUtils::GetInstance().ReadShader(ShaderFileName);
+		this->Name = ShaderFileName.string();
+		this->SourceCode = FileUtils::GetInstance().ReadShader(ShaderFileName.string());
 	}
 	bool Compiled = false;
 	std::string Name;
@@ -49,7 +50,7 @@ class VertexShader : public Shader
 {
 	friend class ShaderFactory;
 
-	VertexShader(const std::string& ShaderFileName) : Shader(ShaderFileName)
+	VertexShader(const boost::filesystem::path& ShaderFileName) : Shader(ShaderFileName)
 	{
 		Compile();
 	}
@@ -61,7 +62,7 @@ class FragmentShader : public Shader
 {
 	friend class ShaderFactory;
 
-	FragmentShader(const std::string& ShaderFileName) : Shader(ShaderFileName)
+	FragmentShader(const boost::filesystem::path& ShaderFileName) : Shader(ShaderFileName)
 	{
 		Compile();
 	}
@@ -126,25 +127,25 @@ public:
 		return instance;
 	}
 
-	std::shared_ptr<VertexShader> CreateVertexShader(const std::string& ShaderFileName) {
+	std::shared_ptr<VertexShader> CreateVertexShader(const boost::filesystem::path& ShaderFileName) {
 
-		if (ShaderStorage.find(ShaderFileName) != ShaderStorage.end()) {
-			return std::static_pointer_cast<VertexShader>(ShaderStorage[ShaderFileName]);
+		if (ShaderStorage.find(ShaderFileName.string()) != ShaderStorage.end()) {
+			return std::static_pointer_cast<VertexShader>(ShaderStorage[ShaderFileName.string()]);
 		}
 
 		auto shader = std::shared_ptr<VertexShader>(new VertexShader(ShaderFileName));
-		ShaderStorage[ShaderFileName] = shader;
+		ShaderStorage[ShaderFileName.string()] = shader;
 		return shader;
 	}
 
-	std::shared_ptr<FragmentShader> CreateFragmentShader(const std::string& ShaderFileName) {
+	std::shared_ptr<FragmentShader> CreateFragmentShader(const boost::filesystem::path& ShaderFileName) {
 
-		if (ShaderStorage.find(ShaderFileName) != ShaderStorage.end()) {
-			return std::static_pointer_cast<FragmentShader>(ShaderStorage[ShaderFileName]);
+		if (ShaderStorage.find(ShaderFileName.string()) != ShaderStorage.end()) {
+			return std::static_pointer_cast<FragmentShader>(ShaderStorage[ShaderFileName.string()]);
 		}
 
 		auto shader = std::shared_ptr<FragmentShader>(new FragmentShader(ShaderFileName));
-		ShaderStorage[ShaderFileName] = shader;
+		ShaderStorage[ShaderFileName.string()] = shader;
 		return shader;
 	}
 
@@ -177,10 +178,11 @@ public:
 		return nullptr;
 	}
 
-	std::shared_ptr<ShaderProgram> CreateShaderProgram(const std::string& VertexShaderFile, const std::string& FragmentShaderFile)
+	std::shared_ptr<ShaderProgram> CreateShaderProgram(const boost::filesystem::path& VertexShaderFile, const boost::filesystem::path& FragmentShaderFile)
 	{
 		auto VertPtr = CreateVertexShader(VertexShaderFile);
 		auto FragPtr = CreateFragmentShader(FragmentShaderFile);
 		return CreateShaderProgram(VertPtr, FragPtr);
 	}
+
 };

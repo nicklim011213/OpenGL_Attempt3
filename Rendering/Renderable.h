@@ -20,6 +20,8 @@
 #include "Texture.h"
 #include "FileUtils.h"
 
+typedef boost::filesystem::path path;
+
 struct Vertex {
 	glm::vec3 Position;
 	glm::vec3 Normal;
@@ -50,16 +52,17 @@ public:
 
 class Model
 {
-	void Load(std::string ModelObjectPath)
+	void Load(path ModelObjectPath)
 	{
+		std::string ModelPath = ModelObjectPath.string();
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(ModelObjectPath, aiProcess_Triangulate | aiProcess_FlipUVs);
+		const aiScene* scene = importer.ReadFile(ModelPath, aiProcess_Triangulate | aiProcess_FlipUVs);
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			std::cerr << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
 			return;
 		}
-		Dir = ModelObjectPath.substr(0, ModelObjectPath.find_last_of('/'));
+		Dir = ModelPath.substr(0, ModelPath.find_last_of('/'));
 		ProcessNode(scene->mRootNode, scene);
 	}
 
@@ -84,16 +87,16 @@ public:
 	std::string Dir;
 	std::vector<Mesh> meshes;
 	bool ExternalTexture = false;
-	std::vector<std::string> ExtTextures;
+	std::vector<path> ExtTextures;
 
 	glm::mat4 ModelProperties = glm::mat4(1.0f);
 
-	Model(std::string ModelObjectPath)
+	Model(path ModelObjectPath)
 	{
 		Load(ModelObjectPath);
 	}
 
-	Model(std::string ModelObjectPath, bool TextureSeperate, std::vector<std::string> TextureFiles)
+	Model(path ModelObjectPath, bool TextureSeperate, std::vector<path> TextureFiles)
 	{
 		ExternalTexture = true;
 		ExtTextures = TextureFiles;

@@ -19,8 +19,7 @@ public:
 		return instance;
 	}
 
-	void Init()
-	{
+	void Init() {
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -29,15 +28,35 @@ public:
 		glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 	}
 
-	void GenerateWindow(int Width, int Height, std::string WindowTitle)
-	{
+	void GenerateWindow(int Width, int Height, std::string WindowTitle) {
 		window = glfwCreateWindow(Width, Height, WindowTitle.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(window);
 		glViewport(0, 0, Width, Height);
 	}
 
+	void ConfigureWindowCallbacks(GLFWcursorposfun CursorCallback, GLFWframebuffersizefun FrameBufferCallback) {
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetFramebufferSizeCallback(window, FrameBufferCallback);
+		glfwSetCursorPosCallback(window, CursorCallback);
+	}
+
 	GLFWwindow* GetWindow() const {
 		return window;
+	}
+
+	void PollEvents()
+	{
+		glfwPollEvents();
+	}
+
+	void SwapBuffers()
+	{
+		glfwSwapBuffers(window);
+	}
+
+	bool IsWindowClosed()
+	{
+		return glfwWindowShouldClose(window);
 	}
 };
 

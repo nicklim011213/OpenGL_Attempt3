@@ -52,6 +52,6 @@ public:
 
 	float UpdateFrameTimer()
 	{
-		return SceneCamera.FrameTimerUpdate();
+		return FrameTimer::GetInstance().FrameTimerUpdate();
 	}
 };

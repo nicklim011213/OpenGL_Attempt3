@@ -4,6 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "FrameTiming.h"
+
 class Camera
 {
 	Camera() {};
@@ -18,18 +20,11 @@ class Camera
 	glm::mat4 Projection = glm::perspective(glm::radians(60.0f), (float)1920 / (float)1080, 0.1f, 100.0f);
 	
 	float Speed = 2.5f;
-	float deltaTime = 0.0f;
-	float lastFrame = 0.0f;
 	float lastX = 1920 / 2;
 	float lastY = 1080 / 2;
 	bool firstmouse = true;
 	float yaw = -90.0f;
 	float pitch = 0.0f;
-
-	float DeltaTime() const
-	{
-		return deltaTime;
-	}
 
 	void Update()
 	{
@@ -47,7 +42,7 @@ public:
 
 	void MoveCamera(glm::vec3 Direction)
 	{
-		cameraPos += glm::normalize(Direction) * (Speed * deltaTime);
+		cameraPos += glm::normalize(Direction) * (Speed * FrameTimer::GetInstance().DeltaTime());
 		Update();
 	}
 
@@ -56,20 +51,12 @@ public:
 		return cameraView;
 	}
 
-	float FrameTimerUpdate()
-	{
-		float currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-		return deltaTime;
-	}
-
 	glm::vec3 GetPosition() const
 	{
 		return cameraPos;
 	}
 
-	void mousemovement(GLFWwindow* window, double xposIn, double yposIn)
+	void OnMouseMove(GLFWwindow* windowobj, double xposIn, double yposIn)
 	{
 		float xpos = static_cast<float>(xposIn);
 		float ypos = static_cast<float>(yposIn);
@@ -96,7 +83,7 @@ public:
 		if (pitch < -89.0f)
 			pitch = -89.0f;
 
-		glm::vec3 direction;
+		glm::vec3 direction = glm::vec3(1.0f);
 		direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 		direction.y = sin(glm::radians(pitch));
 		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -104,23 +91,24 @@ public:
 		Update();
 	}
 
-	void Input(GLFWwindow* window)
+	void OnKeyboardPress(Window& window) const
 	{
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-			glfwSetWindowShouldClose(window, true);
+		GLFWwindow* GLFW_Window = window.GetWindow();
+		if (glfwGetKey(GLFW_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			glfwSetWindowShouldClose(GLFW_Window, true);
 
 		Camera& camera = Camera::GetInstance();
-		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		if (glfwGetKey(GLFW_Window, GLFW_KEY_W) == GLFW_PRESS)
 			camera.MoveCamera(cameraFront);
-		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		if (glfwGetKey(GLFW_Window, GLFW_KEY_S) == GLFW_PRESS)
 			camera.MoveCamera(-cameraFront);
-		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		if (glfwGetKey(GLFW_Window, GLFW_KEY_A) == GLFW_PRESS)
 			camera.MoveCamera(-cameraRight);
-		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		if (glfwGetKey(GLFW_Window, GLFW_KEY_D) == GLFW_PRESS)
 			camera.MoveCamera(cameraRight);
 	}
 
-	glm::mat4 GetProjectionView()
+	glm::mat4 GetProjectionView() const
 	{
 		return Projection;
 	}

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glm/vec3.hpp"
+#include "GL/glew.h"
 #include <iostream>
 
 class EngineContext {
@@ -15,7 +15,7 @@ public:
 		return instance;
 	}
 
-	void Initlize() {
+	void Initialize() {
 
 		glewExperimental = GL_TRUE;
 		glewInit();

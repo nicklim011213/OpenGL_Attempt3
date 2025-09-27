@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Rendering\Camera.h" />
     <ClInclude Include="Rendering\Renderable.h" />
     <ClInclude Include="Rendering\Scene.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Rendering\Window.h" />
     <ClInclude Include="Settings\EngineContext.h" />
     <ClInclude Include="Utilities\FileUtils.h" />
+    <ClInclude Include="Utilities\FrameTiming.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

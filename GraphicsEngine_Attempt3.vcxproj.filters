@@ -56,6 +56,12 @@
     <ClInclude Include="Rendering\Scene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utilities\FrameTiming.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

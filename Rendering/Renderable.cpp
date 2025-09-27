@@ -69,8 +69,9 @@ std::vector<std::shared_ptr<Texture>> Model::LoadMaterialTextures(aiMaterial* ma
 	}
 	else
 	{
-		for (std::string Texturename : ExtTextures)
+		for (path Texturepath : ExtTextures)
 		{
+			std::string Texturename = Texturepath.string();
 			if (Texturename.find("_diffuse") != std::string::npos)
 			{
 				std::shared_ptr<Texture> diffuseTex = TexturePool::GetInstance().CreateTexture(

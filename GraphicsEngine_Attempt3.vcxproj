@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\External_Includes;K:\VSProjects\OpenGL_Attempt3\External_Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\External_Includes;C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\Utilities;C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\Settings;C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\Rendering;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -120,29 +120,32 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\External_Includes;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\External_Includes;C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\Utilities;C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\Settings;C:\Users\nlimb\OneDrive\Desktop\OpenGL\OpenGL_Attempt3\Rendering;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsEngine_Attempt3.cpp" />
-    <ClCompile Include="Renderable.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Rendering\Renderable.cpp" />
+    <ClCompile Include="Rendering\Shader.cpp" />
+    <ClCompile Include="Rendering\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="EngineContext.h" />
-    <ClInclude Include="FileUtils.h" />
-    <ClInclude Include="Renderable.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Rendering\Camera.h" />
+    <ClInclude Include="Rendering\Renderable.h" />
+    <ClInclude Include="Rendering\Scene.h" />
+    <ClInclude Include="Rendering\Shader.h" />
+    <ClInclude Include="Rendering\Texture.h" />
+    <ClInclude Include="Rendering\Window.h" />
+    <ClInclude Include="Settings\EngineContext.h" />
+    <ClInclude Include="Utilities\FileUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -18,37 +18,43 @@
     <ClCompile Include="GraphicsEngine_Attempt3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderable.cpp">
+    <ClCompile Include="Rendering\Renderable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="Rendering\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
+    <ClCompile Include="Rendering\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Window.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineContext.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderable.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FileUtils.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Camera.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Renderable.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Shader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Texture.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Window.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings\EngineContext.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\FileUtils.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Scene.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,25 +18,27 @@ void OnKeyboardPress(Window& window);
 Window& Init();
 
 typedef boost::filesystem::path path;
-typedef std::shared_ptr<ShaderProgram> ShaderPtr;
+typedef std::shared_ptr<Shader> ShaderPtr;
+typedef std::shared_ptr<ShaderProgram> ShaderProgramPtr;
 
 int main()
 {
+
 	Window& window = Init();
 
 	ShaderFactory& Factory = ShaderFactory::GetInstance();
-	ShaderPtr TutShader = Factory.CreateShaderProgram("ModelLoading.vs", "ModelLoading_Advanced.fs");
+	ShaderProgramPtr TutShader = Factory.CreateShaderProgram("ModelLoading.vs", "ModelLoading_Advanced.fs");
 	
 	FileUtils& FileSystem = FileUtils::GetInstance();
 	path ModelPath = FileSystem.GetModelPath();
 	path TexturePath = FileSystem.GetTexturePath();
 
 	std::vector<path> TextureFileNames = { 
-		TexturePath /= "backpack_diffuse.jpg", 
-		TexturePath /= "backpack_specular.jpg"
+		TexturePath / "backpack_diffuse.jpg", 
+		TexturePath / "backpack_specular.jpg"
 	};
 
-	Model model(ModelPath /= "backpack.obj", true, TextureFileNames);
+	Model model(ModelPath / "backpack.obj", true, TextureFileNames);
 	model.Move(glm::vec3(0.0f, 0.0f, 8.0f));
 	model.Scale(glm::vec3(0.2f, 0.2f, 0.2f));
 

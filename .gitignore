@@ -10,3 +10,5 @@ bin/
 obj/
 x64/
 packages/
+out/
+build/

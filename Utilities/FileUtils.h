@@ -22,7 +22,7 @@ public:
 
 	std::string ReadShader(std::string ShaderName)
 	{
-		boost::filesystem::path p = boost::filesystem::current_path();
+		boost::filesystem::path p = std::string(PROJECT_SOURCE_DIR);
 		p /= "Shaders";
 		p /= ShaderName;
 
@@ -38,14 +38,14 @@ public:
 
 	boost::filesystem::path GetTexturePath()
 	{
-		boost::filesystem::path p = boost::filesystem::current_path();
+		boost::filesystem::path p = std::string(PROJECT_SOURCE_DIR);
 		p /= "Textures";
 		return p;
 	}
 
 	boost::filesystem::path GetModelPath()
 	{
-		boost::filesystem::path p = boost::filesystem::current_path();
+		boost::filesystem::path p = std::string(PROJECT_SOURCE_DIR);
 		p /= "Models";
 		return p;
 	}

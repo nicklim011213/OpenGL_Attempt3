@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "assimp",
+    "boost",
+    "glew",
+    "glfw3",
+    "glm",
+    "boost-filesystem"
+  ]
+}

@@ -61,6 +61,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>

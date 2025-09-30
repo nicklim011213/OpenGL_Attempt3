@@ -27,12 +27,12 @@ int main()
 	Window& window = Init();
 
 	ShaderFactory& Factory = ShaderFactory::GetInstance();
-	ShaderProgramPtr TutShader = Factory.CreateShaderProgram("ModelLoading.vs", "ModelLoading_Advanced.fs");
+	ShaderProgramPtr TutShader = Factory.CreateShaderProgram("Gouraud.vs", "Gouraud.fs");
 	
 	FileUtils& FileSystem = FileUtils::GetInstance();
 	path ModelPath = FileSystem.GetModelPath();
 	path TexturePath = FileSystem.GetTexturePath();
-
+	
 	std::vector<path> TextureFileNames = { 
 		TexturePath / "backpack_diffuse.jpg", 
 		TexturePath / "backpack_specular.jpg"
